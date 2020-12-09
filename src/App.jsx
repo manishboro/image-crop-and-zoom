@@ -123,16 +123,16 @@ export default function App() {
 				>
 					Download
 				</Button>
-
-				<Snackbar
-					anchorOrigin={{ vertical: "top", horizontal: "center" }}
-					open={open}
-					autoHideDuration={4000}
-					onClose={handleClose}
-				>
-					<Alert severity='warning'>Please select an image!</Alert>
-				</Snackbar>
 			</div>
+
+			<Snackbar
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				open={open}
+				autoHideDuration={4000}
+				onClose={handleClose}
+			>
+				<Alert severity='warning'>Please select an image!</Alert>
+			</Snackbar>
 		</div>
 	);
 }

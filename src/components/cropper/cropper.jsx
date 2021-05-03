@@ -40,9 +40,8 @@ export default function RenderCropper({ handleCropper }) {
 	const [crop, setCrop] = React.useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = React.useState(1);
 
-	const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+	const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) =>
 		setCroppedArea(croppedAreaPixels);
-	};
 
 	const onSelectFile = (event) => {
 		if (event.target.files && event.target.files.length > 0) {
@@ -90,7 +89,24 @@ export default function RenderCropper({ handleCropper }) {
 			canvasDataUrl,
 			"cropped-image.jpeg"
 		);
-		console.log(convertedUrlToFile);
+		// http://localhost:9000/api/users/setProfilePic
+
+		// console.log(convertedUrlToFile);
+
+		try {
+			const formdata = new FormData();
+			formdata.append("croppedImage", convertedUrlToFile);
+
+			const res = await fetch("http://localhost:9000/api/users/setProfilePic", {
+				method: "POST",
+				body: formdata,
+			});
+
+			const res2 = await res.json();
+			console.log(res2);
+		} catch (err) {
+			console.warn(err);
+		}
 	};
 
 	return (
@@ -145,6 +161,7 @@ export default function RenderCropper({ handleCropper }) {
 				>
 					Clear
 				</Button>
+
 				<Button
 					variant='contained'
 					color='primary'
@@ -153,6 +170,7 @@ export default function RenderCropper({ handleCropper }) {
 				>
 					Choose
 				</Button>
+
 				<Button
 					variant='contained'
 					color='secondary'
@@ -161,6 +179,7 @@ export default function RenderCropper({ handleCropper }) {
 				>
 					Download
 				</Button>
+
 				<Button variant='contained' color='secondary' onClick={onUpload}>
 					Upload
 				</Button>

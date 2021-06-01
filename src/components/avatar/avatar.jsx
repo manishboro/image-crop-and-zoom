@@ -1,5 +1,5 @@
 import React from "react";
-import "./avatar.css";
+import "./avatar";
 
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -38,6 +38,8 @@ export default function RenderAvatar() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
+  const [avatar, setAvatar] = React.useState("");
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -74,7 +76,7 @@ export default function RenderAvatar() {
     <>
       <div className="avatar-container">
         <div className="avatar">
-          <img src="" alt="avatar" className="avatar-img" />
+          <img src={avatar} alt="avatar" className="avatar-img" />
         </div>
 
         <IconButton
@@ -127,7 +129,9 @@ export default function RenderAvatar() {
         </Popper>
       </div>
 
-      {showCropper && <RenderCropper handleCropper={handleCropper} />}
+      {showCropper && (
+        <RenderCropper handleCropper={handleCropper} setAvatar={setAvatar} />
+      )}
     </>
   );
 }
